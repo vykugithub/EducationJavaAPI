@@ -2,8 +2,6 @@ package com.example.postgresdemo.controller;
 
 import com.example.postgresdemo.exception.ResourceNotFoundException;
 import com.example.postgresdemo.model.ClassDetails;
-import com.example.postgresdemo.model.Question;
-import com.example.postgresdemo.model.SubjectDetails;
 import com.example.postgresdemo.repository.ClassDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

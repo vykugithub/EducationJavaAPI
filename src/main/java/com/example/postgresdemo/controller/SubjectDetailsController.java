@@ -1,7 +1,5 @@
 package com.example.postgresdemo.controller;
 
-import com.example.postgresdemo.exception.ResourceNotFoundException;
-import com.example.postgresdemo.model.ClassDetails;
 import com.example.postgresdemo.model.SubjectDetails;
 import com.example.postgresdemo.repository.SubjectDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +22,10 @@ public class SubjectDetailsController {
 
     @GetMapping("/subjects/{sid}")
     public SubjectDetails getSubject(@PathVariable Long sid) {
-        return subjectDetailsRepository.findById(sid).
-        map(subjectDetails -> {
+        return subjectDetailsRepository.findById(sid).get();
+        /*map(subjectDetails -> {
             return subjectDetails;
-        }).orElseThrow(() -> new ResourceNotFoundException("Subject details not found with id " + sid));
+        }).orElseThrow(() -> new ResourceNotFoundException("Subject details not found with id " + sid));*/
     }
 
     @PostMapping("/subjects")
