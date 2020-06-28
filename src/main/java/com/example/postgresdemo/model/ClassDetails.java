@@ -1,9 +1,9 @@
 package com.example.postgresdemo.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-
-import lombok.Data;
 
 @Entity
 @Table(name = "class_details")
