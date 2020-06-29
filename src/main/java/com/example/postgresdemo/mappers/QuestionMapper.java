@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses =AnswerMapper.class )
+@Mapper(uses = AnswerMapper.class)
 public interface QuestionMapper {
 
     QuestionMapper INSTANCE = Mappers.getMapper(QuestionMapper.class);
@@ -19,6 +19,7 @@ public interface QuestionMapper {
     }
     )
     QuestionDTO objToDto(QuestionBank questionBank);
+
     @Mappings({
             @Mapping(source = "cid", target = "classDetails.cid"),
             @Mapping(source = "sid", target = "subjectDetails.sid"),

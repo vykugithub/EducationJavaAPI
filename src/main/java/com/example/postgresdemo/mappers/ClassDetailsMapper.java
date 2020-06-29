@@ -9,6 +9,8 @@ import org.mapstruct.factory.Mappers;
 public interface ClassDetailsMapper {
 
     ClassDetailsMapper INSTANCE = Mappers.getMapper(ClassDetailsMapper.class);
+
     ClassDetailsDTO objToDto(ClassDetails classDetails);
+
     ClassDetails dtoToObj(ClassDetailsDTO classDetailsDTO);
 }

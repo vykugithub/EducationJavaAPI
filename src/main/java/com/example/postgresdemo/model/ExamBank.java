@@ -7,15 +7,15 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "answers_bank")
+@Table(name = "exam_bank")
 @Getter
 @Setter
-public class AnswersBank extends AuditModel {
+public class ExamBank extends AuditModel {
     @Id
-    @GeneratedValue(generator = "answers_generator")
+    @GeneratedValue(generator = "eb_generator")
     @SequenceGenerator(
-            name = "answers_generator",
-            sequenceName = "answers_generator",
+            name = "eb_generator",
+            sequenceName = "eb_generator",
             initialValue = 1000
     )
     private Long id;
@@ -25,8 +25,12 @@ public class AnswersBank extends AuditModel {
     @JsonIgnore
     private QuestionBank question;
 
-    private String text;
 
-    private boolean is_correct;
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "ebid")
+    @JsonIgnore
+    private ExamMasterBankMapping examMasterBankMapping;
+
+    private boolean isActive;
 
 }

@@ -39,7 +39,7 @@ public class AnswerController {
     public Answer updateAnswer(@PathVariable Long questionId,
                                @PathVariable Long answerId,
                                @Valid @RequestBody Answer answerRequest) {
-        if(!questionRepository.existsById(questionId)) {
+        if (!questionRepository.existsById(questionId)) {
             throw new ResourceNotFoundException("Question not found with id " + questionId);
         }
 
@@ -53,7 +53,7 @@ public class AnswerController {
     @DeleteMapping("/questions/{questionId}/answers/{answerId}")
     public ResponseEntity<?> deleteAnswer(@PathVariable Long questionId,
                                           @PathVariable Long answerId) {
-        if(!questionRepository.existsById(questionId)) {
+        if (!questionRepository.existsById(questionId)) {
             throw new ResourceNotFoundException("Question not found with id " + questionId);
         }
 

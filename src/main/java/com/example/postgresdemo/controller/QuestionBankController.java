@@ -29,16 +29,17 @@ public class QuestionBankController {
 
     @GetMapping("/questions")
     public List<QuestionDTO> getQuestions(Pageable pageable) {
-        Page<QuestionBank> list= questionBankRepository.findAll(pageable);
+        Page<QuestionBank> list = questionBankRepository.findAll(pageable);
         return list.stream().map(QuestionMapper.INSTANCE::objToDto).collect(Collectors.toList());
     }
 
     @PostMapping("/questions")
     public QuestionBank createQuestion(@Valid @RequestBody QuestionDTO question) {
-        QuestionBank questionB= QuestionMapper.INSTANCE.dtoToObj(question);
-        for(AnswersBank ab:questionB.getAnswersBank()){
-           ab.setQuestion(questionB);
+        QuestionBank questionB = QuestionMapper.INSTANCE.dtoToObj(question);
+        for (AnswersBank ab : questionB.getAnswersBank()) {
+            ab.setQuestion(questionB);
         }
         return questionBankRepository.save(questionB);
     }
+
 }

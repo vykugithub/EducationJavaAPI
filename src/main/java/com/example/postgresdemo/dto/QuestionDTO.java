@@ -1,9 +1,12 @@
 package com.example.postgresdemo.dto;
 
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-@Getter @Setter
+
+import java.util.Set;
+
+@Getter
+@Setter
 public class QuestionDTO {
 
     private String textDesc;

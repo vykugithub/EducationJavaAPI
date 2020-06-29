@@ -1,12 +1,15 @@
 package com.example.postgresdemo.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 @Entity
 @Table(name = "class_details")
-@Getter @Setter
+@Getter
+@Setter
 public class ClassDetails extends AuditModel {
     @Id
     @GeneratedValue(generator = "class_generator")
