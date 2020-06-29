@@ -1,13 +1,12 @@
 package com.example.postgresdemo.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-
+import lombok.Getter;
+import lombok.Setter;
 @Entity
 @Table(name = "subject_details")
-@Data
+@Getter @Setter
 public class SubjectDetails extends AuditModel {
     @Id
     @GeneratedValue(generator = "subject_generator")

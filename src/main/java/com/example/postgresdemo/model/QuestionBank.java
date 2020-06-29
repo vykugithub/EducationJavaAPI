@@ -1,15 +1,17 @@
 package com.example.postgresdemo.model;
 
-import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "question_bank")
-@Data
+@Getter @Setter
 public class QuestionBank extends AuditModel {
     @Id
     @GeneratedValue(generator = "question_generator")
@@ -47,7 +49,9 @@ public class QuestionBank extends AuditModel {
     @Column(nullable = true)
     private String textDesc;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "question")
-    private Set<AnswersBank> answersBank;
+
+    @OneToMany(mappedBy = "question",cascade={CascadeType.ALL})
+    //@Column(nullable = false)
+    private List<AnswersBank> answersBank;
 
 }

@@ -1,8 +1,7 @@
 package com.example.postgresdemo.dto;
-
-import lombok.Data;
-
-@Data
+import lombok.Getter;
+import lombok.Setter;
+@Getter @Setter
 public class ClassDetailsDTO {
     private Long cid;
     private String name;

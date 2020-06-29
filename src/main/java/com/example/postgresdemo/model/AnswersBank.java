@@ -1,12 +1,15 @@
 package com.example.postgresdemo.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "answers_bank")
-@Data
+@Getter
+@Setter
 public class AnswersBank extends AuditModel {
     @Id
     @GeneratedValue(generator = "answers_generator")
@@ -17,8 +20,9 @@ public class AnswersBank extends AuditModel {
     )
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="qid")
+    @ManyToOne(cascade={CascadeType.ALL})
+    @JoinColumn(name = "qid")
+    @JsonIgnore
     private QuestionBank question;
 
     private String text;
