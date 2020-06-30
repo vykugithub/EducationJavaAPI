@@ -1,19 +1,19 @@
 package com.example.postgresdemo.controller;
 
+import com.example.postgresdemo.dto.ExamBankDTO;
 import com.example.postgresdemo.dto.ExamMasterBankMappingDTO;
 import com.example.postgresdemo.dto.ExamMasterDTO;
 import com.example.postgresdemo.dto.QuestionDTO;
 import com.example.postgresdemo.exception.ResourceNotFoundException;
+import com.example.postgresdemo.mappers.ExamBankMapper;
 import com.example.postgresdemo.mappers.ExamMasterBankMappingMapper;
 import com.example.postgresdemo.mappers.ExamMasterMapper;
 import com.example.postgresdemo.mappers.QuestionMapper;
-import com.example.postgresdemo.model.AnswersBank;
-import com.example.postgresdemo.model.ExamMaster;
-import com.example.postgresdemo.model.ExamMasterBankMapping;
-import com.example.postgresdemo.model.QuestionBank;
+import com.example.postgresdemo.model.*;
 import com.example.postgresdemo.repository.ExamBankRepository;
 import com.example.postgresdemo.repository.ExamMasterBankMappingRepository;
 import com.example.postgresdemo.repository.ExamMasterRepository;
+import com.example.postgresdemo.repository.QuestionBankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +31,9 @@ public class ExamController {
 
     @Autowired
     ExamBankRepository  examBankRepository;
+
+    @Autowired
+    QuestionBankRepository questionBankRepository;
 
     @Autowired
     ExamMasterBankMappingRepository examMasterBankMappingRepository;
@@ -77,4 +80,15 @@ public class ExamController {
         return examMasterBankMappingRepository.findByExamMasterEid(examId);
     }
 
+    @PostMapping("/exams/questions/{emid}")
+    public ExamBank addQuestionToExam(@PathVariable Long emid,@Valid @RequestBody ExamBankDTO examBankDTO) {
+        ExamBank mapping = ExamBankMapper.INSTANCE.dtoToObj(examBankDTO);
+        return examMasterBankMappingRepository.findById(emid).map(examMasterBankMapping ->{
+            return questionBankRepository.findById(examBankDTO.getQid()).map(questionBank -> {
+                mapping.setExamMasterBankMapping(examMasterBankMapping);
+                mapping.setQuestion(questionBank);
+                return examBankRepository.save(mapping);
+            }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + mapping.getQuestion().getQid()));
+        }).orElseThrow(() -> new ResourceNotFoundException("Exam not found with id " + emid));
+    }
 }

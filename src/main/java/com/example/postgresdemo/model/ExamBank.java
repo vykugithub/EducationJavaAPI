@@ -22,12 +22,12 @@ public class ExamBank extends AuditModel {
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "qid")
-    @JsonIgnore
+    //@JsonIgnore
     private QuestionBank question;
 
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ebid")
+    @JoinColumn(name = "emid")
     @JsonIgnore
     private ExamMasterBankMapping examMasterBankMapping;
 

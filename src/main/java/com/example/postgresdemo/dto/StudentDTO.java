@@ -1,12 +1,13 @@
 package com.example.postgresdemo.dto;
 
-import com.example.postgresdemo.model.ClassDetails;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 @Getter
 @Setter
-public class SubjectDetailsDTO {
-    private Long sid;
+public class StudentDTO {
+    private Long stu_id;
     private String name;
+    private Long cid;
 }

@@ -21,7 +21,7 @@ public class ExamMasterBankMapping extends AuditModel {
             sequenceName = "emb_generator",
             initialValue = 1000
     )
-    private Long ebid;
+    private Long emid;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "sid", nullable = false)

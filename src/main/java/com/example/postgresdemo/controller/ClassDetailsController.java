@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 public class ClassDetailsController {
+
     @Autowired
     ClassDetailsRepository classDetailsRepository;
 

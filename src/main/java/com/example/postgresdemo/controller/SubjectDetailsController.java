@@ -1,6 +1,12 @@
 package com.example.postgresdemo.controller;
 
+import com.example.postgresdemo.dto.SubjectDetailsDTO;
+import com.example.postgresdemo.exception.ResourceNotFoundException;
+import com.example.postgresdemo.mappers.QuestionMapper;
+import com.example.postgresdemo.mappers.SubjectDetailsMapper;
+import com.example.postgresdemo.model.QuestionBank;
 import com.example.postgresdemo.model.SubjectDetails;
+import com.example.postgresdemo.repository.ClassDetailsRepository;
 import com.example.postgresdemo.repository.SubjectDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +21,9 @@ public class SubjectDetailsController {
     @Autowired
     SubjectDetailsRepository subjectDetailsRepository;
 
+    @Autowired
+    ClassDetailsRepository classDetailsRepository;
+
     @GetMapping("/subjects")
     public Page<SubjectDetails> getSubjects(Pageable pageable) {
         return subjectDetailsRepository.findAll(pageable);
@@ -28,9 +37,12 @@ public class SubjectDetailsController {
         }).orElseThrow(() -> new ResourceNotFoundException("Subject details not found with id " + sid));*/
     }
 
-    @PostMapping("/subjects")
-    public SubjectDetails createSubject(@Valid @RequestBody SubjectDetails subjectDetails) {
-        return subjectDetailsRepository.save(subjectDetails);
+    @PostMapping("/subjects/{cid}")
+    public SubjectDetails createSubject(@PathVariable Long cid,@Valid @RequestBody SubjectDetailsDTO subjectDetailsDTO) {
+        SubjectDetails subjectDetails = SubjectDetailsMapper.INSTANCE.dtoToObj(subjectDetailsDTO);
+        return classDetailsRepository.findById(cid).map(classDetails ->{
+            subjectDetails.setClassDetails(classDetails);
+            return subjectDetailsRepository.save(subjectDetails);
+        }).orElseThrow(() -> new ResourceNotFoundException("ClassDetails not found with id " + cid));
     }
-
 }
