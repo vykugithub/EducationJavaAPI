@@ -40,6 +40,8 @@ public class ExamMaster extends AuditModel {
     @Column(nullable = false)
     private Integer negMarking;
 
+    private  boolean isActive=false;
+
     @OneToMany(mappedBy = "examMaster", cascade = {CascadeType.ALL})
     //@Column(nullable = false)
     private List<ExamMasterBankMapping> examMasterBankMappings;

@@ -1,11 +1,8 @@
 package com.example.postgresdemo.controller;
 
-import com.example.postgresdemo.dto.ExamMasterBankMappingDTO;
 import com.example.postgresdemo.dto.ExamMasterDTO;
-import com.example.postgresdemo.dto.StudentDTO;
 import com.example.postgresdemo.dto.StudentExamMasterDTO;
 import com.example.postgresdemo.mappers.ExamMasterMapper;
-import com.example.postgresdemo.mappers.StudentExamMasterMapper;
 import com.example.postgresdemo.model.*;
 import com.example.postgresdemo.repository.ExamMasterRepository;
 import com.example.postgresdemo.repository.StudentExamDetailsRepository;
@@ -49,6 +46,7 @@ public class StudentExamController {
         StudentExamMaster studentExamMaster=new StudentExamMaster();
         studentExamMaster.setStudent(student);
         studentExamMaster.setStatus("INPROGRESS");
+        studentExamMaster.setActive(true);
         studentExamMaster.setExamMaster(examMaster);
         studentExamMaster=studentExamMasterRepository.save(studentExamMaster);
         for(ExamMasterBankMapping mapping:examMaster.getExamMasterBankMappings()){
@@ -61,4 +59,10 @@ public class StudentExamController {
         }
         return studentExamMasterRepository.save(studentExamMaster);
     }
+
+    @GetMapping("/examdetails/{sedId}")
+    public Page<StudentExamDetails> getExamQuestions(@PathVariable Long sedId,Pageable pageable){
+        return studentExamDetailsRepository.findBySedId(sedId,pageable);
+    }
+
 }

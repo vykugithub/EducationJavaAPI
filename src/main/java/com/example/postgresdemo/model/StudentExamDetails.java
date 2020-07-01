@@ -19,7 +19,8 @@ public class StudentExamDetails {
             sequenceName = "sem_generator",
             initialValue = 1000
     )
-    private Long sed_id;
+    @Column(name="sed_id")
+    private Long sedId;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "qid")

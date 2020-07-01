@@ -9,6 +9,6 @@ public class StudentExamDetailsDTO {
     private Long stu_id;
     private Long eid;
     private Long qid;
-    private Long sed_id;
+    private Long sedId;
     private String answerText;
 }
